@@ -59,14 +59,12 @@ export default (props) => {
     <div>
       <PageHeader name="Tarefas" small="Cadastro" />
       <TodoForm
-        description={description}
         handleChange={handleChange}
         handleAdd={handleAdd}
         handleSearch={handleSearch}
         handleClear={handleClear}
       />
       <TodoList
-        list={list}
         handleRemove={handleRemove}
         handleMarkAsPending={handleMarkAsPending}
         handleMarkAsDone={handleMarkAsDone}
