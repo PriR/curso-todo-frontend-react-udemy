@@ -4,19 +4,20 @@ import { bindActionCreators } from "redux";
 
 import Grid from "../template/grid";
 import IconButton from "../template/iconButton";
-import { changeDescription, search } from "./todoActions";
+import { changeDescription, search, add } from "./todoActions";
 
 const TodoForm = (props) => {
+  const { add, search, description } = props;
   const keyHandler = (e) => {
     if (e.key === "Enter") {
-      e.shiftKey ? props.handleSearch() : props.handleAdd();
+      e.shiftKey ? search() : add(description);
     } else if (e.key === "Escape") {
       props.handleClear();
     }
   };
 
   useEffect(() => {
-    props.search();
+    search();
   }, []);
 
   return (
@@ -26,15 +27,19 @@ const TodoForm = (props) => {
           id="description"
           className="form-control"
           placeholder="Adicione uma tarefa"
-          value={props.description}
+          value={description}
           onChange={props.changeDescription}
           onKeyUp={keyHandler}
         />
       </Grid>
 
       <Grid cols="12 3 2">
-        <IconButton style="primary" icon="plus" onClick={props.handleAdd} />
-        <IconButton style="info" icon="search" onClick={props.handleSearch} />
+        <IconButton
+          style="primary"
+          icon="plus"
+          onClick={() => add(description)}
+        />
+        <IconButton style="info" icon="search" onClick={() => search()} />
         <IconButton style="default" icon="close" onClick={props.handleClear} />
       </Grid>
     </div>
@@ -43,6 +48,6 @@ const TodoForm = (props) => {
 
 const mapStateToProps = (state) => ({ description: state.todo.description });
 const mapDispatchToProps = (dispatch) =>
-  bindActionCreators({ changeDescription, search }, dispatch);
+  bindActionCreators({ changeDescription, search, add }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoForm);
