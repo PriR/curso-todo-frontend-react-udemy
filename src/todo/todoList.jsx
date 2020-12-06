@@ -33,12 +33,12 @@ const TodoList = (props) => {
   };
   return (
     <table className="table">
-      <thread>
+      <thead>
         <tr>
           <th>Descrição</th>
           <th className="tableActions">Ações</th>
         </tr>
-      </thread>
+      </thead>
       <tbody>{renderRows()}</tbody>
     </table>
   );
